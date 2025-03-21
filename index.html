@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>D.I.M. Interactive Decision Tree</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f2f2f2; }
+    #app { background: white; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    .question { margin-bottom: 20px; font-weight: bold; }
+    .btn { padding: 10px 20px; margin: 5px; cursor: pointer; background: #007BFF; color: white; border: none; border-radius: 4px; }
+    .btn:hover { background: #0056b3; }
+    .result { margin-top: 20px; padding: 15px; background: #e0ffe0; border-left: 5px solid #28a745; }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="question" id="question">Start: Does the client have a mobility restriction?</div>
+  <button class="btn" onclick="next('yes')">Yes</button>
+  <button class="btn" onclick="next('no')">No</button>
+  <div class="result" id="result" style="display: none;"></div>
+</div>
+
+<script>
+let step = 0;
+function next(answer) {
+  const question = document.getElementById("question");
+  const result = document.getElementById("result");
+  if (step === 0) {
+    if (answer === 'yes') {
+      question.innerText = "Recommend: Start in Restoration Phase";
+      document.querySelectorAll('.btn').forEach(btn => btn.style.display = 'none');
+    } else {
+      question.innerText = "Is the client demonstrating fear or avoidance behavior?";
+      step++;
+    }
+  } else if (step === 1) {
+    if (answer === 'yes') {
+      question.innerText = "Recommend: Begin with Mindfulness / CBT / Somatic Practices";
+      document.querySelectorAll('.btn').forEach(btn => btn.style.display = 'none');
+    } else {
+      question.innerText = "Does the client have vestibular or balance issues?";
+      step++;
+    }
+  } else if (step === 2) {
+    if (answer === 'yes') {
+      question.innerText = "Recommend: Start with Vestibular + Sensory Integration Drills";
+      document.querySelectorAll('.btn').forEach(btn => btn.style.display = 'none');
+    } else {
+      question.innerText = "Does the client have high load tolerance?";
+      step++;
+    }
+  } else if (step === 3) {
+    if (answer === 'yes') {
+      question.innerText = "Recommend: Advance to Resilience Phase";
+    } else {
+      question.innerText = "Recommend: Proceed to Reinforcement Phase";
+    }
+    document.querySelectorAll('.btn').forEach(btn => btn.style.display = 'none');
+  }
+}
+</script>
+</body>
+</html>
